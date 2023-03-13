@@ -10,10 +10,11 @@ import {useRefreshOnFocus} from '../../hooks/useRefreshOnFocus';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AlertMessage from '../../components/Boxes/BoxAlerts/AlertMessage';
+import {Alert} from '../../models/models';
 
 const Alerts = () => {
   const {data, isLoading, refetch, isRefetching} = useQuery(['alerts'], () =>
-    httpGet('alerts', ''),
+    httpGet<Alert[]>('alerts', ''),
   );
   useRefreshOnFocus(refetch);
   return (
@@ -30,14 +31,14 @@ const Alerts = () => {
           <Text style={styles.updateButton}>Actualizar</Text>
         </View>
       </TouchableOpacity>
-      {data?.data.length === 0 && (
+      {data?.length === 0 && (
         <AlertMessage message="No hay alertas activas para mostrar" />
       )}
 
-      {data?.data.length > 0 && (
+      {data && data?.length > 0 && (
         <FlatList
-          data={data.data}
-          keyExtractor={item => item.id}
+          data={data}
+          keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
             <Card>
               <BoxAlert item={item} />

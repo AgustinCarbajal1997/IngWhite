@@ -1,14 +1,13 @@
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, Linking} from 'react-native';
 import React, {useState} from 'react';
 import THEME from '../../utils/constants/Theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import dropdownicons from '../../utils/constants/dropdown';
-import * as Linking from 'expo-linking';
 const Dropdown = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const handleLink = (url: string) => {
-    Linking.openURL(url);
+  const handleLink = async (url: string) => {
+    await Linking.openURL(url);
   };
   return (
     <TouchableWithoutFeedback onPress={() => setOpen(!open)}>

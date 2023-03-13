@@ -1,16 +1,25 @@
 import React from 'react';
-import {Alert, Share, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  Alert as Alerta,
+  Share,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import THEME from '../../../../utils/constants/Theme';
-const AlertShareInfo = ({item}) => {
+import {Alert} from '../../../../models/models';
+const AlertShareInfo = ({item}: {item: Alert}) => {
   const onShareAlert = () => {
     Share.share({
       message: `ALERTA: ${item.titulo}. ${item.contenido}`,
     })
       .then()
       .catch(_ =>
-        Alert.alert('Ocurrió un error', 'No se pudo compartir', [{text: 'OK'}]),
+        Alerta.alert('Ocurrió un error', 'No se pudo compartir', [
+          {text: 'OK'},
+        ]),
       );
   };
   return (

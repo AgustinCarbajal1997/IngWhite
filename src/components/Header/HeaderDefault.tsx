@@ -6,11 +6,21 @@ import THEME from '../../utils/constants/Theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {httpGet} from '../../services';
 import {useQuery} from 'react-query';
-import weather_icons from '../../utils/constants/climate';
 import Dropdown from '../Dropdown';
 import {useRefreshOnFocus} from '../../hooks/useRefreshOnFocus';
-const HeaderDefault = ({title, navigation}) => {
-  const {data, refetch} = useQuery(['wheather'], () => httpGet('climate', ''));
+import {Climate} from '../../models/models';
+import ClimateBadge from '../Climate';
+
+const HeaderDefault = ({
+  title,
+  navigation,
+}: {
+  title: string;
+  navigation: any;
+}) => {
+  const {data, refetch} = useQuery(['wheather'], () =>
+    httpGet<Climate>('climate', ''),
+  );
   const insets = useSafeAreaInsets();
   useRefreshOnFocus(refetch);
   return (
@@ -34,18 +44,7 @@ const HeaderDefault = ({title, navigation}) => {
             />
           </View>
           <View style={styles.climateContainer}>
-            {data && (
-              <>
-                <Ionicon
-                  name={weather_icons[data?.weather[0].icon]}
-                  size={26}
-                  color={THEME.colors.white}
-                />
-                <Text style={styles.climateText}>
-                  {Math.round(data?.main?.temp)}ºC
-                </Text>
-              </>
-            )}
+            {data && <ClimateBadge data={data} />}
           </View>
         </View>
       </View>

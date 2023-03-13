@@ -2,9 +2,16 @@ import React from 'react';
 import {Image, Text, TouchableWithoutFeedback, View} from 'react-native';
 import styles from './styles';
 import {decode} from 'html-entities';
-const NewsPreview = ({item, handleTouch}) => {
+import {Post} from '../../../../models/models';
+const NewsPreview = ({
+  item,
+  handleTouch,
+}: {
+  item: Post;
+  handleTouch: () => void;
+}) => {
   return (
-    <TouchableWithoutFeedback onPress={handleTouch}>
+    <TouchableWithoutFeedback onPress={handleTouch} testID="NewsPreview">
       <View style={styles.boxContainerClose}>
         <View style={styles.imgContainerClose}>
           <Image

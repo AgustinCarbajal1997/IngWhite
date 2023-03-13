@@ -1,22 +1,22 @@
 import React, {Fragment} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Linking} from 'react-native';
 import styles from './styles';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
+  DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 
 import ListenToUs from '../ListenToUs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import * as Linking from 'expo-linking';
 import Notifications from '../Notifications';
 import drawerItems from '../../utils/constants/drawerItems';
 
-const CustomDrawerContent = props => {
+const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const insets = useSafeAreaInsets();
-  const handleLink = (url: string) => {
-    Linking.openURL(url);
+  const handleLink = async (url: string) => {
+    await Linking.openURL(url);
   };
 
   return (

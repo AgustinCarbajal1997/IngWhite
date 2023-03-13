@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
     "expo-app-loading": "^2.1.1",
+    "expo-constants": "^14.2.1",
     "expo-font": "^11.1.1",
     "expo-linking": "^4.0.1",
     "html-entities": "^2.3.3",
@@ -38,6 +39,8 @@
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@testing-library/jest-native": "^5.4.2",
+    "@testing-library/react-native": "^11.5.4",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
@@ -52,6 +55,14 @@
     "typescript": "4.8.4"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js",
+      "<rootDir>/jest/setup.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|react-native-vector-icons)/)",
+      "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
+    ]
   }
 }

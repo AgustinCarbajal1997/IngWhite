@@ -1,13 +1,12 @@
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, Linking} from 'react-native';
 import React from 'react';
 import dropdownicons from '../../utils/constants/dropdown';
-import * as Linking from 'expo-linking';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import THEME from '../../utils/constants/Theme';
 const SocialMedia = () => {
-  const handleLink = (url: string) => {
-    Linking.openURL(url);
+  const handleLink = async (url: string) => {
+    await Linking.openURL(url);
   };
   return (
     <View style={styles.footerItemContainer}>

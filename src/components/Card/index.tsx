@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({children}) => {
+const Card = ({children}: {children: React.ReactNode}) => {
   return <>{children}</>;
 };
 

@@ -10,11 +10,12 @@ import THEME from '../../utils/constants/Theme';
 import {useRefreshOnFocus} from '../../hooks/useRefreshOnFocus';
 import styles from './styles';
 import getDate from '../../utils/helpers/date';
+import {Post} from '../../models/models';
 const News = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const {data, isLoading, refetch, isRefetching} = useQuery(
     ['posts'],
-    () => httpGet('api', `/posts?per_page=10&before=${getDate()}`),
+    () => httpGet<Post[]>('api', `/posts?per_page=10&before=${getDate()}`),
     {
       cacheTime: 5000,
       refetchOnMount: true,
@@ -25,10 +26,10 @@ const News = () => {
   useRefreshOnFocus(refetch);
   const {mutate: addPosts, isLoading: isLoadingMutation} = useMutation(
     async () => {
-      if (data?.length === 0) {
+      if (!data || data?.length === 0) {
         return [];
       }
-      const newPosts = await httpGet(
+      const newPosts = await httpGet<Post[]>(
         'api',
         `/posts?per_page=10&before=${data[data.length - 1].date}`,
       );
@@ -54,8 +55,9 @@ const News = () => {
       {isRefetching && <Loader />}
       {data?.length && (
         <FlatList
+          testID="NewsList"
           data={data}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           onEndReached={() => addPosts()}
           showsVerticalScrollIndicator={false}
           refreshControl={

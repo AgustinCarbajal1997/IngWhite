@@ -7,10 +7,11 @@ import THEME from '../../../utils/constants/Theme';
 import AlertOptions from '../../../utils/enums/alerts';
 import AlertTitle from './AlertTitle';
 import AlertShareInfo from './AlertShareInfo';
+import {Alert} from '../../../models/models';
 
-const BoxAlert = ({item}) => {
+const BoxAlert = ({item}: {item: Alert}) => {
   return (
-    <View style={styles.boxAlertContainer}>
+    <View style={styles.boxAlertContainer} testID="BoxAlerts">
       <View style={styles.boxCalendarContainer}>
         <View
           style={[

@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, Linking} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import THEME from '../../utils/constants/Theme';
-import * as Linking from 'expo-linking';
 const ListenToUs = () => {
-  const handleLink = (url: string) => {
-    Linking.openURL(url);
+  const handleLink = async (url: string) => {
+    await Linking.openURL(url);
   };
   return (
     <TouchableWithoutFeedback

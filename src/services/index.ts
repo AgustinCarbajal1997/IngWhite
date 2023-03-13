@@ -22,18 +22,22 @@ const config: Config = {
   alerts: BASE_URL_ALERTS,
   climate: BASE_URL_CLIMATE,
   options: {
-    headers: {'content-type': 'application/json'},
+    headers: { 'content-type': 'application/json' },
   },
 };
 
-export const httpGet = (url: keyof Config, endpoint: string) => {
+export const httpGet = <T>(url: keyof Config, endpoint: string): Promise<T> => {
   return fetch(`${config[url]}${endpoint}`, {
     ...config.options,
   })
     .then(response => handleResponse(response))
-    .then(response => response)
+    .then(response => {
+      if (!response.data) {
+        return response;
+      }
+      return response.data;
+    })
     .catch(error => {
-      console.error(error);
       throw Error(error);
     });
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import {Alert} from '../../../../models/models';
 import AlertOptions from '../../../../utils/enums/alerts';
 import styles from './styles';
 
-const AlertTitle = ({item}) => {
+const AlertTitle = ({item}: {item: Alert}) => {
   return (
     <View
       style={[

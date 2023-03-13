@@ -1,19 +1,27 @@
 import React from 'react';
 import {
+  Alert,
   ImageBackground,
   Share,
   Text,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
+  Linking,
 } from 'react-native';
 import THEME from '../../../../utils/constants/Theme';
 import styles from './styles';
 import RenderHtml from 'react-native-render-html';
-import * as Linking from 'expo-linking';
 import {decode} from 'html-entities';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const NewsDetail = ({item, handleTouch}) => {
+import {Post} from '../../../../models/models';
+const NewsDetail = ({
+  item,
+  handleTouch,
+}: {
+  item: Post;
+  handleTouch: () => void;
+}) => {
   const {width} = useWindowDimensions();
   const source = {
     html: item?.excerpt?.rendered,
@@ -25,18 +33,20 @@ const NewsDetail = ({item, handleTouch}) => {
       padding: 0,
     },
   };
-  const handleLink = (url: string) => {
-    Linking.openURL(url);
+  const handleLink = async (url: string) => {
+    await Linking.openURL(url);
   };
   const onShareNews = () => {
     Share.share({
       message: `NOTICIA: ${item.title.rendered}. Podés encontrar la noticia completa en: ${item.link}`,
     })
-      .then(result => console.log(result))
-      .catch(error => console.log(error));
+      .then()
+      .catch(_ =>
+        Alert.alert('Ocurrió un error', 'No se pudo compartir', [{text: 'OK'}]),
+      );
   };
   return (
-    <View style={styles.boxContainer}>
+    <View style={styles.boxContainer} testID="DetailNews">
       <View style={styles.headerContainer}>
         <ImageBackground
           source={{uri: item.jetpack_featured_media_url}}

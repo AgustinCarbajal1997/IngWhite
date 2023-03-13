@@ -43,7 +43,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           ))}
           <ListenToUs />
         </View>
-        <Notifications />
+        <Notifications {...props} />
       </View>
     </DrawerContentScrollView>
   );

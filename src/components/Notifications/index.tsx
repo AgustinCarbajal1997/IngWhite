@@ -4,8 +4,8 @@ import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import THEME from '../../utils/constants/Theme';
 import SocialMedia from '../SocialMedia';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import OneSignal from 'react-native-onesignal';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
+// import OneSignal from 'react-native-onesignal';
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 const Notifications = (props: DrawerContentComponentProps) => {
   const {navigation} = props;
@@ -13,61 +13,61 @@ const Notifications = (props: DrawerContentComponentProps) => {
   const [alerts, setAlerts] = useState<boolean>(true);
 
   const onSelectNews = async () => {
-    try {
-      if (news) {
-        setNews(false);
-        await AsyncStorage.setItem('@news', 'true');
-        OneSignal.deleteTag('noticias');
-        return;
-      }
-      setNews(true);
-      await AsyncStorage.removeItem('@news');
-      OneSignal.sendTag('noticias', 'true');
-    } catch (error) {
-      Alert.alert('Ocurrió un error', 'No se pudo suscribir', [{text: 'OK'}]);
-    }
+    // try {
+    //   if (news) {
+    //     setNews(false);
+    //     await AsyncStorage.setItem('@news', 'true');
+    //     OneSignal.deleteTag('noticias');
+    //     return;
+    //   }
+    //   setNews(true);
+    //   await AsyncStorage.removeItem('@news');
+    //   OneSignal.sendTag('noticias', 'true');
+    // } catch (error) {
+    //   Alert.alert('Ocurrió un error', 'No se pudo suscribir', [{text: 'OK'}]);
+    // }
   };
   const onSelectAlerts = async () => {
-    try {
-      if (alerts) {
-        setAlerts(false);
-        await AsyncStorage.setItem('@alerts', 'true');
-        OneSignal.deleteTag('alertas');
-        return;
-      }
-      setAlerts(true);
-      await AsyncStorage.removeItem('@alerts');
-      OneSignal.sendTag('alertas', 'true');
-    } catch (error) {
-      Alert.alert('Ocurrió un error', 'No se pudo suscribir', [{text: 'OK'}]);
-    }
+    // try {
+    //   if (alerts) {
+    //     setAlerts(false);
+    //     await AsyncStorage.setItem('@alerts', 'true');
+    //     OneSignal.deleteTag('alertas');
+    //     return;
+    //   }
+    //   setAlerts(true);
+    //   await AsyncStorage.removeItem('@alerts');
+    //   OneSignal.sendTag('alertas', 'true');
+    // } catch (error) {
+    //   Alert.alert('Ocurrió un error', 'No se pudo suscribir', [{text: 'OK'}]);
+    // }
   };
 
   useEffect(() => {
-    (async () => {
-      const valueNews = await AsyncStorage.getItem('@news');
-      const valueAlerts = await AsyncStorage.getItem('@alerts');
-      if (!valueNews) {
-        OneSignal.sendTag('noticias', 'true');
-      }
-      if (!valueAlerts) {
-        OneSignal.sendTag('alertas', 'true');
-      }
-      if (valueNews !== null) {
-        OneSignal.deleteTag('noticias');
-        setNews(false);
-      }
-      console.log('valueAlerts', valueAlerts);
-      if (valueAlerts !== null) {
-        OneSignal.deleteTag('alertas');
-        setAlerts(false);
-      }
-    })();
+    // (async () => {
+    //   const valueNews = await AsyncStorage.getItem('@news');
+    //   const valueAlerts = await AsyncStorage.getItem('@alerts');
+    //   if (!valueNews) {
+    //     OneSignal.sendTag('noticias', 'true');
+    //   }
+    //   if (!valueAlerts) {
+    //     OneSignal.sendTag('alertas', 'true');
+    //   }
+    //   if (valueNews !== null) {
+    //     OneSignal.deleteTag('noticias');
+    //     setNews(false);
+    //   }
+    //   console.log('valueAlerts', valueAlerts);
+    //   if (valueAlerts !== null) {
+    //     OneSignal.deleteTag('alertas');
+    //     setAlerts(false);
+    //   }
+    // })();
   }, []);
 
-  OneSignal.setNotificationOpenedHandler(() => {
-    navigation.navigate('Alerts');
-  });
+  // OneSignal.setNotificationOpenedHandler(() => {
+  //   navigation.navigate('Alerts');
+  // });
 
   return (
     <View style={styles.notificationContainer}>

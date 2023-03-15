@@ -69,22 +69,22 @@ const styles = StyleSheet.create({
     color: THEME.colors.gray,
   },
   important: {
-    backgroundColor: THEME.colors.important.backgroundColor,
+    backgroundColor: THEME.colors.important,
   },
   importantLight: {
-    backgroundColor: THEME.colors.importantLight.backgroundColor,
+    backgroundColor: THEME.colors.importantLight,
   },
   alert: {
-    backgroundColor: THEME.colors.alert.backgroundColor,
+    backgroundColor: THEME.colors.alert,
   },
   alertLight: {
-    backgroundColor: THEME.colors.alertLight.backgroundColor,
+    backgroundColor: THEME.colors.alertLight,
   },
   advice: {
-    backgroundColor: THEME.colors.advice.backgroundColor,
+    backgroundColor: THEME.colors.advice,
   },
   adviceLight: {
-    backgroundColor: THEME.colors.adviceLight.backgroundColor,
+    backgroundColor: THEME.colors.adviceLight,
   },
 });
 export default styles;

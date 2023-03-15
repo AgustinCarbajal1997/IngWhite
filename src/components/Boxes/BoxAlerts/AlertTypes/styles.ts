@@ -2,13 +2,15 @@ import {StyleSheet} from 'react-native';
 import THEME from '../../../../utils/constants/Theme';
 
 const styles = StyleSheet.create({
-  boxDataContainer: {
-    width: '70%',
-    paddingHorizontal: 10,
-    justifyContent: 'center',
+  boxDateContainer: {
+    width: '30%',
+    backgroundColor: THEME.colors.orange,
+    alignItems: 'center',
+    paddingVertical: 10,
   },
-  boxDataText: {
-    color: THEME.colors.drakgreen,
+  month: {
+    fontSize: 13,
+    color: THEME.colors.white,
   },
   important: {
     backgroundColor: THEME.colors.important,

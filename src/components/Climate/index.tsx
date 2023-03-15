@@ -1,5 +1,5 @@
 import {Text} from 'react-native';
-import React, {Fragment} from 'react';
+import React from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import THEME from '../../utils/constants/Theme';
 import styles from './styles';

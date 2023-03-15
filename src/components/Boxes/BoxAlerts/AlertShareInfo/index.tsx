@@ -1,27 +1,10 @@
 import React from 'react';
-import {
-  Alert as Alerta,
-  Share,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import THEME from '../../../../utils/constants/Theme';
 import {Alert} from '../../../../models/models';
+import ShareData from '../../../Share ';
+
 const AlertShareInfo = ({item}: {item: Alert}) => {
-  const onShareAlert = () => {
-    Share.share({
-      message: `ALERTA: ${item.titulo}. ${item.contenido}`,
-    })
-      .then()
-      .catch(_ =>
-        Alerta.alert('Ocurrió un error', 'No se pudo compartir', [
-          {text: 'OK'},
-        ]),
-      );
-  };
   return (
     <View style={styles.descriptionContainer}>
       <Text style={styles.descriptionDate}>
@@ -29,16 +12,7 @@ const AlertShareInfo = ({item}: {item: Alert}) => {
       </Text>
       <Text style={styles.description}>{item.contenido}</Text>
       <View style={styles.buttonsContainer}>
-        <TouchableWithoutFeedback onPress={onShareAlert}>
-          <View style={styles.buttons}>
-            <Text style={styles.buttonShare}>Compartir</Text>
-            <Ionicons
-              name="share-social"
-              color={THEME.colors.lightgreen}
-              size={15}
-            />
-          </View>
-        </TouchableWithoutFeedback>
+        <ShareData message={`ALERTA: ${item.titulo}. ${item.contenido}`} />
       </View>
     </View>
   );

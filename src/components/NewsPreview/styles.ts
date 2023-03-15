@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import THEME from '../../../../utils/constants/Theme';
+import THEME from '../../utils/constants/Theme';
 
 const styles = StyleSheet.create({
   boxContainerClose: {

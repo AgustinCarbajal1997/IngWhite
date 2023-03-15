@@ -1,6 +1,12 @@
 import 'react-native';
 import React from 'react';
-import {render, fireEvent, act, waitFor} from '@testing-library/react-native';
+import {
+  render,
+  fireEvent,
+  act,
+  waitFor,
+  RenderResult,
+} from '@testing-library/react-native';
 import News from '../src/components/Boxes/BoxNews/index';
 
 const mockItem = {
@@ -19,15 +25,14 @@ const mockItem = {
   link: 'https://www.ingenierowhite.com/malena-hefner-la-ganadora-de-una-nueva-edicion-de-la-carrera-de-la-mujer/',
 };
 
+let component: RenderResult;
+
 describe('box news', () => {
-  it('render component receives props correctly', () => {
-    const component = render(<News item={mockItem} />);
-    const preview = component.getByTestId('NewsPreview');
-    expect(preview).toBeDefined();
-    expect(component.queryAllByTestId('DetailNews').length).toEqual(0);
+  beforeEach(() => {
+    component = render(<News item={mockItem} />);
   });
+
   it('dropdown news press', () => {
-    const component = render(<News item={mockItem} />);
     const preview = component.getByTestId('NewsPreview');
 
     act(() => {
@@ -36,7 +41,6 @@ describe('box news', () => {
   });
 
   it('details news activated', () => {
-    const component = render(<News item={mockItem} />);
     const preview = component.getByTestId('NewsPreview');
     act(() => {
       fireEvent(preview, 'press');

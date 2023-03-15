@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import {render} from '@testing-library/react-native';
+import {render, RenderResult} from '@testing-library/react-native';
 import ClimateBadge from '../src/components/Climate';
 import {Climate} from '../src/models/models';
 
@@ -49,9 +49,13 @@ const mockItem: Climate = {
   cod: 200,
 };
 
+let component: RenderResult;
+
 describe('climate badge', () => {
+  beforeEach(() => {
+    component = render(<ClimateBadge data={mockItem} />);
+  });
   it('render component receives props correctly', () => {
-    const component = render(<ClimateBadge data={mockItem} />);
     const climateBadge = component.getByTestId('ClimateBadge');
     expect(climateBadge).toBeDefined();
   });

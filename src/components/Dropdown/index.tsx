@@ -10,12 +10,14 @@ const Dropdown = () => {
     await Linking.openURL(url);
   };
   return (
-    <TouchableWithoutFeedback onPress={() => setOpen(!open)}>
+    <TouchableWithoutFeedback
+      onPress={() => setOpen(!open)}
+      testID="dropdown-container">
       <View style={styles.dropdownButton}>
         <Text style={styles.dropdownText}>Seguinos</Text>
         <Ionicon name="share-social" size={20} color={THEME.colors.white} />
         {open && (
-          <View style={styles.dropdownFloatContainer}>
+          <View style={styles.dropdownFloatContainer} testID="dropdown-detail">
             {dropdownicons.map((item, idx) => (
               <TouchableWithoutFeedback
                 onPress={() => handleLink(item.url)}

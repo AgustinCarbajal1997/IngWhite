@@ -40,10 +40,13 @@ describe('template alerts', () => {
     expect(loader).toBeDefined();
   });
 
-  it('template component refetch data from API after pulling up', () => {
+  it('template component refetch data from API after pulling up', async () => {
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const alerts = await asyncMock();
+
     const component = render(
       <AlertsTemplate
-        data={mockItems}
+        data={alerts}
         isLoading={false}
         isRefetching={true}
         refetch={() => {}}
@@ -53,15 +56,32 @@ describe('template alerts', () => {
     expect(loader).toBeDefined();
   });
 
-  it('flat list render correctly alerts, open a post and share via social network', () => {
+  it('flat list render correctly alerts, open a post and share via social network', async () => {
     const component = render(
       <AlertsTemplate
-        data={mockItems}
+        data={undefined}
+        isLoading={true}
+        isRefetching={false}
+        refetch={() => {}}
+      />,
+    );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(1);
+
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const alerts = await asyncMock();
+
+    component.rerender(
+      <AlertsTemplate
+        data={alerts}
         isLoading={false}
         isRefetching={false}
         refetch={() => {}}
       />,
     );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(0);
+
     const flatList = component.getByTestId('alerts-list');
     expect(flatList).toBeDefined();
 

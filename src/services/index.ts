@@ -22,7 +22,7 @@ const config: Config = {
   alerts: BASE_URL_ALERTS,
   climate: BASE_URL_CLIMATE,
   options: {
-    headers: { 'content-type': 'application/json' },
+    headers: {'content-type': 'application/json'},
   },
 };
 

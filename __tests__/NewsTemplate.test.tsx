@@ -37,7 +37,7 @@ const mockItems = [
 ];
 
 describe('template news', () => {
-  it('template component mounts while fetching data from API', () => {
+  it('template component mounts while fetching data from API', async () => {
     const component = render(
       <NewsTemplate
         data={undefined}
@@ -52,10 +52,32 @@ describe('template news', () => {
     expect(loader).toBeDefined();
   });
 
-  it('template component refetch data from API after pulling up', () => {
+  it('template component fetch data from API after mounting', async () => {
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const newsPosts = await asyncMock();
+
     const component = render(
       <NewsTemplate
-        data={mockItems}
+        data={newsPosts}
+        isLoading={false}
+        isLoadingMutation={false}
+        isRefreshing={true}
+        addPosts={() => {}}
+        handleRefresh={() => {}}
+      />,
+    );
+
+    const loader = component.getByTestId('loader');
+    expect(loader).toBeDefined();
+  });
+
+  it('template component refetch data from API after pulling up', async () => {
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const newsPosts = await asyncMock();
+
+    const component = render(
+      <NewsTemplate
+        data={newsPosts}
         isLoading={false}
         isLoadingMutation={false}
         isRefreshing={true}
@@ -67,10 +89,13 @@ describe('template news', () => {
     expect(loader).toBeDefined();
   });
 
-  it('template component fetch data from API after scrolling down', () => {
+  it('template component fetch data from API after scrolling down', async () => {
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const newsPosts = await asyncMock();
+
     const component = render(
       <NewsTemplate
-        data={mockItems}
+        data={newsPosts}
         isLoading={false}
         isLoadingMutation={true}
         isRefreshing={false}
@@ -82,17 +107,36 @@ describe('template news', () => {
     expect(loader).toBeDefined();
   });
 
-  it('flat list render correctly news posts, open a post and share via social network', () => {
+  it('flat list render correctly news posts, open a post and share via social network', async () => {
     const component = render(
       <NewsTemplate
-        data={mockItems}
-        isLoading={false}
-        isLoadingMutation={true}
+        data={undefined}
+        isLoading={true}
+        isLoadingMutation={false}
         isRefreshing={false}
         addPosts={() => {}}
         handleRefresh={() => {}}
       />,
     );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(1);
+
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const newsPosts = await asyncMock();
+
+    component.rerender(
+      <NewsTemplate
+        data={newsPosts}
+        isLoading={false}
+        isLoadingMutation={false}
+        isRefreshing={false}
+        addPosts={() => {}}
+        handleRefresh={() => {}}
+      />,
+    );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(0);
+
     const flatList = component.getByTestId('news-list');
     expect(flatList).toBeDefined();
 
@@ -111,17 +155,36 @@ describe('template news', () => {
     waitFor(() => expect(component.getByTestId('share-data')).toBeNull());
   });
 
-  it('flat list render correctly news posts, open a post and enter the link', () => {
+  it('flat list render correctly news posts, open a post and enter the link', async () => {
     const component = render(
       <NewsTemplate
-        data={mockItems}
-        isLoading={false}
-        isLoadingMutation={true}
+        data={undefined}
+        isLoading={true}
+        isLoadingMutation={false}
         isRefreshing={false}
         addPosts={() => {}}
         handleRefresh={() => {}}
       />,
     );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(1);
+
+    const asyncMock = jest.fn().mockResolvedValueOnce(mockItems);
+    const newsPosts = await asyncMock();
+
+    component.rerender(
+      <NewsTemplate
+        data={newsPosts}
+        isLoading={false}
+        isLoadingMutation={false}
+        isRefreshing={false}
+        addPosts={() => {}}
+        handleRefresh={() => {}}
+      />,
+    );
+
+    expect(component.queryAllByTestId('loader').length).toEqual(0);
+
     const flatList = component.getByTestId('news-list');
     expect(flatList).toBeDefined();
 

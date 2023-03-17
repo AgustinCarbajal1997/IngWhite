@@ -1,14 +1,16 @@
 import React from 'react';
-import {useQuery} from 'react-query';
-import {httpGet} from '../../services';
 import {useRefreshOnFocus} from '../../hooks/useRefreshOnFocus';
 import {Alert} from '../../models/models';
 import AlertsTemplate from '../../templates/Alerts';
+import useFetch from '../../hooks/useFetch';
 
 const Alerts = () => {
-  const {data, isLoading, refetch, isRefetching} = useQuery(['alerts'], () =>
-    httpGet<Alert[]>('alerts', ''),
+  const {data, refetch, isLoading, isRefetching} = useFetch<Alert[]>(
+    'alerts',
+    '',
+    'alerts',
   );
+
   useRefreshOnFocus(refetch);
   return (
     <AlertsTemplate

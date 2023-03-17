@@ -10,7 +10,7 @@ interface Options {
   };
 }
 
-interface Config {
+export interface Config {
   api: string;
   alerts: string;
   climate: string;

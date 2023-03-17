@@ -4,12 +4,11 @@ import styles from './styles';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import THEME from '../../utils/constants/Theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {httpGet} from '../../services';
-import {useQuery} from 'react-query';
 import Dropdown from '../Dropdown';
 import {useRefreshOnFocus} from '../../hooks/useRefreshOnFocus';
 import {Climate} from '../../models/models';
 import ClimateBadge from '../Climate';
+import useFetch from '../../hooks/useFetch';
 
 const HeaderDefault = ({
   title,
@@ -18,9 +17,8 @@ const HeaderDefault = ({
   title: string;
   navigation: any;
 }) => {
-  const {data, refetch} = useQuery(['wheather'], () =>
-    httpGet<Climate>('climate', ''),
-  );
+  const {data, refetch} = useFetch<Climate>('climate', '', 'wheather');
+
   const insets = useSafeAreaInsets();
   useRefreshOnFocus(refetch);
   return (
